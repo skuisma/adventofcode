@@ -1,9 +1,14 @@
 package aoc2019;
 
-import javafx.util.Pair;
+
+//import javafx.util.Pair;
+import utils.FileReader;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.javatuples.Pair;
 
 
 public class Day03 {
@@ -36,18 +41,18 @@ public class Day03 {
         System.out.println(distance);
         System.out.println(totalSteps);
     }
-
+    
     private void routeWire(String r) {
         Arrays.stream(r.split(","))
             .map(elem -> {
                 int[] direction = getDirection(elem.charAt(0));
                 int length = Integer.parseInt(elem.substring(1));
-                return new Pair<>(direction, length);
+                return new Pair(direction, length);
             })
             .forEach(w -> {
-                for (int i = 0; i < w.getValue(); i++) {
-                    int newX = x + w.getKey()[0];
-                    int newY = y + w.getKey()[1];
+                for (int i = 0; i < w.getSize(); i++) {
+                    int newX = x + (int)w.getValue(0);
+                    int newY = y + (int)w.getValue(1);
                     steps++;
                     if (map.containsKey(newX + "-" + newY) && rowNumber == 2){
                         distance = Math.min(distance, Math.abs(newX) + Math.abs(newY));

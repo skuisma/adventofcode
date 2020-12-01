@@ -1,5 +1,7 @@
 package aoc2019;
 
+import utils.FileReader;
+
 import java.util.Arrays;
 
 public class Day02 {

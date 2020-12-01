@@ -8,6 +8,7 @@ import java.util.Map;
 public class Day04 {
     public static void main(String[] args) {
         Day04 day = new Day04();
+        day.solve(134792, 675810);
         day.solve2(134792, 675810);
     }
 

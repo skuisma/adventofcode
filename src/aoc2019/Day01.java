@@ -1,15 +1,15 @@
 package aoc2019;
 
-import java.beans.beancontext.BeanContextChild;
+import utils.FileReader;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Day01 {
 
     public static void main(String[] args) {
         Day01 day = new Day01();
+        day.solve();
         day.solve2();
     }
 
