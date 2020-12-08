@@ -4,6 +4,7 @@ package aoc2020;
 import utils.FileReader;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Day06 {
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class Day06 {
         FileReader fr = new FileReader(dataPath);
         List<String> data = fr.readFile();
 
-        List<HashMap> part1 = new ArrayList<>();
+        List<HashMap> answers = new ArrayList<>();
         HashMap<Character,Integer> group = new HashMap<>();
 
         for (String line : data) {
@@ -28,16 +29,35 @@ public class Day06 {
                         group.put(line.charAt(i), 1);
                     }
                 }
+                if (group.containsKey('#')) {
+                    group.put('#', group.get('#') + 1);
+                } else {
+                    group.put('#', 1);
+                }
             } else {
-                part1.add(new HashMap(group));
+                answers.add(new HashMap(group));
                 group.clear();
             }
         }
-        part1.add(new HashMap(group));
+        answers.add(new HashMap(group));
 
-        System.out.println(part1.stream()
-                .map(g -> g.size())
-                .reduce(0, Integer::sum)
-        );
+        int part2 = answers.stream()
+                .mapToInt(g -> {
+                    int count = (int)g.get('#');
+                    AtomicInteger yes = new AtomicInteger();
+                    g.remove('#');
+                    g.forEach((o, o2) -> {
+                        if ((int)o2 == count) { yes.addAndGet(1);}
+
+                    });
+                    return yes.intValue();
+                })
+                .sum();
+
+        int part1 = answers.stream()
+                .mapToInt(HashMap::size)
+                .sum();
+
+        System.out.println(part1 + "\n" + part2);
     }
 }
